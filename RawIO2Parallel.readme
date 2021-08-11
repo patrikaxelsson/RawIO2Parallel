@@ -16,7 +16,7 @@ Normally, what would be redirected is the debug output produced when you run
 software which is linked with debug.lib from the AmigaOS NDK and uses its
 output functions, but any software which uses the exec.library RawIO
 functions to output text on the serial port will be redirected. For example
-Scout does this.
+SnoopDos does this.
 
 
 Installation:
