@@ -3,8 +3,9 @@ Author: Patrik Axelsson
 Uploader: patrik.bo@gmail.com
 Type: dev/debug
 Architecture: m68k-amigaos >= 2.0.0
-Version: 1.0
+Version: 1.1
 URL: https://github.com/patrikaxelsson/RawIO2Parallel
+Replaces: dev/debug/RawIO2Parallel.lha
 
 This patch redirects the exec.library RawIO functions to the parallel port.
 Created it to make it simpler and more powerful to use a Parallel2Serial
@@ -22,7 +23,8 @@ SnoopDos does this.
 Installation:
 
 Start RawIO2Parallel from User-Startup, WBStartup, somewhere else or use
-LoadModule or similar software to load it as a resident.
+LoadModule, BlizKick, RemApollo or similar software to load it as a
+resident module.
 
 
 Testing:
@@ -31,3 +33,11 @@ Included a simplistic RawEcho command, which outputs text via the
 exec.library RawIO functions. RawIO2Parallel needs to be started for it to
 output to the parallel port, else it will output to the serial port.
 
+
+History:
+
+1.1 (2021-09-26):
+    - Made it a more efficient when used as a resident module.
+
+1.0 (2021-08-12):
+    - Initial release.

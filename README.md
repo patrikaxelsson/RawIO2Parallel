@@ -15,7 +15,8 @@ SnoopDos does this.
 ## Installation
 
 Start RawIO2Parallel from User-Startup, WBStartup, somewhere else or use
-LoadModule or similar software to load it as a resident.
+LoadModule, BlizKick, RemApollo or similar software to load it as a
+resident module.
 
 
 ## Testing
