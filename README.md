@@ -21,7 +21,7 @@ resident module.
 
 ## Testing
 
-Included a simplistic RawEcho command, which outputs text via the
+Included a simplistic RawIOEcho command, which outputs text via the
 exec.library RawIO functions. RawIO2Parallel needs to be started for it to
 output to the parallel port, else it will output to the serial port.
 

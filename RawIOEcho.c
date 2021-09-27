@@ -10,9 +10,9 @@
 #include <stdbool.h>
 
 
-const char Version[] = "$VER: RawEcho 1.0 (10.8.2021) by Patrik Axelsson";
+const char Version[] = "$VER: RawIOEcho 1.1 (27.9.2021) by Patrik Axelsson";
 
-LONG RawEcho(void) {
+LONG RawIOEcho(void) {
 	struct ExecBase *SysBase = *(struct ExecBase **) 4;
 	// Variables possibly requiring cleanup at end
 	struct DosLibrary *DOSBase = NULL;

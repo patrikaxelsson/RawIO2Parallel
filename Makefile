@@ -1,4 +1,4 @@
-all: RawIO2Parallel RawEcho 
+all: RawIO2Parallel RawIOEcho
 
 # The order of the files given to the compiler is important as this order
 # will be kept in the resulting executable.
@@ -11,9 +11,9 @@ all: RawIO2Parallel RawEcho
 RawIO2Parallel: Startup.c Resident.c ResidentInit.c RawIO2Parallel.c Parallel.asm ResidentEnd.c ResidentInit.h RawIO2Parallel.h Parallel.h ResidentEnd.h Makefile
 	vc +aos68k -D__NOLIBBASE__ -nostdlib -c99 -O1 -sc -lamiga -lddebug -o $@ Startup.c Resident.c ResidentInit.c RawIO2Parallel.c Parallel.asm ResidentEnd.c
 
-RawEcho: RawEcho.c Makefile
+RawIOEcho: RawIOEcho.c Makefile
 	vc +aos68k -D__NOLIBBASE__ -nostdlib -c99 -O1 -sc -lamiga -ldebug -o $@ $<
 
 clean:
-	$(RM) RawIO2Parallel RawEcho
+	$(RM) RawIO2Parallel RawIOEcho
 
