@@ -11,8 +11,8 @@ all: RawIO2Parallel RawIOEcho
 RawIO2Parallel: Startup.c Resident.c ResidentInit.c RawIO2Parallel.c Parallel.asm ResidentEnd.c ResidentInit.h RawIO2Parallel.h Parallel.h ResidentEnd.h Makefile
 	vc +aos68k -D__NOLIBBASE__ -nostdlib -c99 -O1 -sc -lamiga -lddebug -o $@ Startup.c Resident.c ResidentInit.c RawIO2Parallel.c Parallel.asm ResidentEnd.c
 
-RawIOEcho: RawIOEcho.c Makefile
-	vc +aos68k -D__NOLIBBASE__ -nostdlib -c99 -O1 -sc -lamiga -ldebug -o $@ $<
+RawIOEcho: RawIOEcho.c MinimalDebug.c MinimalDebug.h Makefile
+	vc +aos68k -D__NOLIBBASE__ -nostdlib -c99 -O1 -sc -o $@ $< MinimalDebug.c
 
 clean:
 	$(RM) RawIO2Parallel RawIOEcho
