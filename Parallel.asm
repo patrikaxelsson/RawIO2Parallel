@@ -1,6 +1,6 @@
 	xdef _ParallelIOInit
 	xdef _ParallelPutChar
-	xdef _GetParallelMayGetCharAddr
+	;xdef _ParallelMayGetChar
 
 	xref PRawPutChar
 	xref PRawMayGetChar
@@ -30,13 +30,8 @@ _ParallelPutChar:
 	; not necessarily discard zero bytes or behave well when receiving them.
 	;
 	tst.b	d0
-	beq.s	.end	; Discard zero bytes
-	bsr		PRawPutChar
-.end
+	bne.s	PRawPutChar
 	rts
 
-_GetParallelMayGetCharAddr:
-	lea	PRawMayGetChar(pc),a0
-	move.l	a0,d0
-	rts
-
+;_ParallelMayGetChar:
+;	bra.s	PRawMayGetChar

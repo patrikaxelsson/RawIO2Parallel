@@ -12,8 +12,8 @@ KPutStr() etc in debug.lib, which is included in the AmigaOS NDK.
 
 Other notable examples of software using the exec.library RawIO functions
 for serial output:
-- Enforcer and MuForce when the RAWIO argument is specified
-- SnoopDos when "Log Mode" is set to "Serial Port"
+ - Enforcer and MuForce when the RAWIO argument is specified
+ - SnoopDos when "Log Mode" is set to "Serial Port"
 
 
 ## Installation

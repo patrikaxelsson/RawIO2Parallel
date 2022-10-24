@@ -20,8 +20,8 @@ KPutStr() etc in debug.lib, which is included in the AmigaOS NDK.
 
 Other notable examples of software using the exec.library RawIO functions
 for serial output:
-- Enforcer and MuForce when the RAWIO argument is specified
-- SnoopDos when "Log Mode" is set to "Serial Port"
+ - Enforcer and MuForce when the RAWIO argument is specified
+ - SnoopDos when "Log Mode" is set to "Serial Port"
 
 
 Installation:
@@ -41,8 +41,8 @@ output to the parallel port, else it will output to the serial port.
 History:
 
 1.1 (2022-10-24):
-    - Kick 1.x+ compatiblity
-	- Smaller and more efficient
+ - Kick 1.x+ compatibility
+ - Smaller and more efficient
 
 1.0 (2021-08-12):
-    - Initial release.
+ - Initial release

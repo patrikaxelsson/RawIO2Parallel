@@ -12,6 +12,6 @@ const struct Resident ROMTag = {
 	.rt_Type      = 0, // Nothing, we just want to run rt_Init
 	.rt_Pri       = 0, // Need to be initialized later than exec obviously
 	.rt_Name      = "RawIO2Parallel",
-	.rt_IdString  = "RawIO2Parallel 1.1 (26.9.2021) by Patrik Axelsson",
+	.rt_IdString  = "RawIO2Parallel 1.1 (24.10.2022) by Patrik Axelsson",
 	.rt_Init      = (void *) &ResidentInit
 };
