@@ -1,15 +1,19 @@
 # RawIO2Parallel
 This patch redirects the exec.library RawIO functions to the parallel port.
+
 Created it to make it simpler and more powerful to use a [Parallel2Serial](https://github.com/patrikaxelsson/Parallel2Serial)
 converter to capture debug output - nothing has to be modified or recompiled
 (often not possible) to get debug output on the parallel port instead of the
 serial port.
 
-Normally, what would be redirected is the debug output produced when you run
-software which is linked with debug.lib from the AmigaOS NDK and uses its
-output functions, but any software which uses the exec.library RawIO
-functions to output text on the serial port will be redirected. For example
-SnoopDos does this.
+The exec.library RawIO functions are often used for serial debug output
+when you develop software. Commonly by using functions like KPrintF(),
+KPutStr() etc in debug.lib, which is included in the AmigaOS NDK.
+
+Other notable examples of software using the exec.library RawIO functions
+for serial output:
+- Enforcer and MuForce when the RAWIO argument is specified
+- SnoopDos when "Log Mode" is set to "Serial Port"
 
 
 ## Installation
@@ -21,7 +25,7 @@ resident module.
 
 ## Testing
 
-Included a simplistic RawIOEcho command, which outputs text via the
+A simplistic RawIOEcho command is included, which outputs text via the
 exec.library RawIO functions. RawIO2Parallel needs to be started for it to
 output to the parallel port, else it will output to the serial port.
 

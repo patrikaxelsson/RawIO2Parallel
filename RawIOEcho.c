@@ -13,30 +13,61 @@ struct RDArgs * __pcrel_ReadArgs(__reg("a6") void *, __reg("a0") CONST_STRPTR ar
 
 #include "MinimalDebug.h"
 
-const char Version[] = "$VER: RawIOEcho 1.1 (19.10.2022) by Patrik Axelsson";
+const char Version[] = "$VER: RawIOEcho 1.1 (24.10.2022) by Patrik Axelsson";
 
-LONG RawIOEcho(void) {
+LONG RawIOEcho(__reg("d0") LONG dosCmdLen, __reg("a0") char *dosCmdBuf) {
 	struct ExecBase *SysBase = *(struct ExecBase **) 4;
-	// Variables requiring cleanup at end
-	struct DosLibrary *DOSBase = NULL;
-	struct RDArgs *argsResult = NULL;
-	
+	// If started from Workbench through an .info file, get and reply to the
+	// startup message and exit to not crash or use up workbench resources.
+	//
+	// I only added this because I added an .info file for this command to
+	// the release archive.
+	//
+	// This would not have been a concern in 2.0+ as the .info file has the
+	// CLI tooltype, so the user gets a prompt and can enter what to echo
+	// and it is started as a proper CLI command.
+	//
+	// However, in 1.x, the CLI tooltype does not work so this is needed.
+	struct Process *thisProcess = (void *) SysBase->ThisTask;
+	if (0 == thisProcess->pr_CLI) {
+		WaitPort(&thisProcess->pr_MsgPort);
+		struct WBStartup *wbStartupMsg = (void *) GetMsg(&thisProcess->pr_MsgPort);
+		Forbid();
+		ReplyMsg((void *) wbStartupMsg);
+		return RETURN_OK;
+	}
+
 	LONG retVal = RETURN_FAIL;
 	
-	DOSBase = (void *) OpenLibrary("dos.library", 36);
+	struct RDArgs *argsResult = NULL;
+	struct DosLibrary *DOSBase = (void *) OpenLibrary("dos.library", 0);
 	if (NULL == DOSBase) {
 		goto cleanup;
 	}
 
+	const char *dosCmdStrings[] = {dosCmdBuf, NULL};
 	struct {
 		const char **strings;
 		const void *noLine;
 	} args = { 0 };
 
-	argsResult = ReadArgs("/M,NOLINE/S", (void *) &args, NULL);
-	if (NULL == argsResult) {
-		PrintFault(IoErr(), NULL);
-		goto cleanup;
+	if (DOSBase->dl_lib.lib_Version >= 36) {
+		argsResult = ReadArgs("/M,NOLINE/S", (void *) &args, NULL);
+		if (NULL == argsResult) {
+			PrintFault(IoErr(), NULL);
+			goto cleanup;
+		}
+	}
+	else {
+		if (dosCmdLen > 1) {
+			args.strings = dosCmdStrings;
+			// A newline is always included, but 1.x does not always
+			// terminate the string with a zero, so overwrite the
+			// newline with a zero to be sure to not write after the
+			// allocated space plus then we can use the default
+			// behaviour of args.noLine to print the newline instead.
+			dosCmdBuf[dosCmdLen - 1] = '\0';
+		}
 	}
 
 	if (NULL != args.strings) {
@@ -63,7 +94,9 @@ cleanup:
 	if (NULL != argsResult) {
 		FreeArgs(argsResult);
 	}
-	CloseLibrary((void *) DOSBase);
+	if (NULL != DOSBase) {
+		CloseLibrary((void *) DOSBase);
+	}
 
 	return retVal;
 }

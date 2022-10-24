@@ -1,3 +1,5 @@
+*.*.swp
+/NDK3.2.lha
+/NDK3.2
 /RawIO2Parallel
 /RawIOEcho
-*.*.swp
